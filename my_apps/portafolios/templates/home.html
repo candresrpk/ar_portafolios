@@ -1,0 +1,261 @@
+{% extends './base.html' %}
+
+
+{% block title %}Home{% endblock  %}
+
+
+
+
+{% block content %}
+
+<!-- =========================
+     HERO / SLIDER FINAL
+========================= -->
+<div class="container-fluid px-0 mb-4">
+  <div id="heroSlider" class="carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+
+      <!-- SLIDE 1 -->
+      <div class="carousel-item active">
+        <div class="hero-slide position-relative">
+
+          <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72"
+               class="hero-img w-100"
+               alt="Programming">
+
+          <div class="hero-overlay"></div>
+
+          <!-- CONTENT -->
+          <div class="hero-content">
+            <div class="container-xl h-100 d-flex align-items-center justify-content-center justify-content-lg-start">
+              <div class="hero-box text-center text-lg-start">
+
+                <h1 class="fw-bold hero-title mb-2">
+                  Desarrollo soluciones <span class="text-success">digitales</span>
+                </h1>
+
+                <p class="hero-text mb-3">
+                  Backend sólido, datos inteligentes y productos pensados para crecer
+                </p>
+
+                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center justify-content-lg-start">
+                  <a href="#portfolio" class="btn btn-success btn-lg">
+                    Ver portafolio
+                  </a>
+                  <a href="#contact" class="btn btn-outline-light btn-lg">
+                    Contáctame
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="carousel-item">
+        <div class="hero-slide position-relative">
+          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f"
+               class="hero-img w-100"
+               alt="Code">
+          <div class="hero-overlay"></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="carousel-item">
+        <div class="hero-slide position-relative">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+               class="hero-img w-100"
+               alt="Developer">
+          <div class="hero-overlay"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTROLES -->
+    <button class="carousel-control-prev hero-control" type="button"
+            data-bs-target="#heroSlider" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next hero-control" type="button"
+            data-bs-target="#heroSlider" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+
+  </div>
+</div>
+
+
+
+
+<!-- =========================
+     ABOUT ME
+========================= -->
+<section class="container-xl px-4 px-lg-5 mb-5">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <h2 class="fw-bold mb-3">Sobre mí</h2>
+      <p class="text-muted fs-5">
+        Soy un desarrollador enfocado en construir soluciones reales, eficientes
+        y escalables. Me especializo en backend con Python y Django, integrando
+        análisis de datos e inteligencia artificial para crear productos con valor.
+      </p>
+      <p class="text-muted">
+        Me caracterizo por una mentalidad orientada a resultados, aprendizaje
+        constante y una fuerte ética de trabajo. Busco siempre escribir código
+        limpio, mantenible y alineado con buenas prácticas profesionales.
+      </p>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="https://images.unsplash.com/photo-1603575448360-153f093fd0b2"
+           class="img-fluid rounded shadow"
+           alt="About me">
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     PORTFOLIO
+========================= -->
+<section id="portfolio" class="container mb-5">
+  <h2 class="fw-bold mb-4 text-center">Proyectos destacados</h2>
+
+  <!-- CARD 1 -->
+  <div class="card mb-4 shadow border-0">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"
+             class="img-fluid rounded-start"
+             alt="Project">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">Sistema de encuestas inteligentes</h5>
+          <p class="card-text text-muted">
+            Plataforma desarrollada en Django para recolección, análisis y
+            predicción de datos mediante modelos de IA.
+          </p>
+          <a href="#" class="btn btn-success">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card mb-4 shadow border-0">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f"
+             class="img-fluid rounded-start"
+             alt="Project">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">CRM inteligente con IA</h5>
+          <p class="card-text text-muted">
+            CRM con búsqueda semántica, análisis de clientes y asistente IA
+            integrado usando FastAPI y OpenAI.
+          </p>
+          <a href="#" class="btn btn-success">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card shadow border-0">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
+             class="img-fluid rounded-start"
+             alt="Project">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">Dashboard de análisis de datos</h5>
+          <p class="card-text text-muted">
+            Visualización de métricas y KPIs con procesamiento de datos en Python
+            y gráficos interactivos.
+          </p>
+          <a href="#" class="btn btn-success">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     FAQ
+========================= -->
+<section class="container mb-5">
+  <h2 class="fw-bold mb-4 text-center">Preguntas frecuentes</h2>
+
+  <div class="card mb-4 shadow border-0">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="fw-bold">¿En qué tecnologías trabajas?</h5>
+          <p class="text-muted">
+            Principalmente Python, Django, FastAPI, SQL, análisis de datos y
+            herramientas modernas de frontend cuando el proyecto lo requiere.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4"
+             class="img-fluid rounded-end"
+             alt="FAQ">
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow border-0">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="fw-bold">¿Qué tipo de proyectos te interesan?</h5>
+          <p class="text-muted">
+            Proyectos con impacto real, uso de datos, automatización, productos
+            digitales escalables y soluciones orientadas a negocio.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c"
+             class="img-fluid rounded-end"
+             alt="FAQ">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     CONTACT / PHRASE
+========================= -->
+<section id="contact" class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-md-6 d-flex align-items-center justify-content-center p-5">
+      <h3 class="fw-bold text-center">
+        “La programación no es solo escribir código, es crear soluciones que
+        transforman ideas en realidad.”
+      </h3>
+    </div>
+    <div class="col-md-6 bg-success text-white p-5 text-center">
+      <h3 class="fw-bold mb-3">¿Te gustaría trabajar conmigo?</h3>
+      <p>Hablemos y construyamos algo increíble juntos.</p>
+      <div class="d-flex justify-content-center gap-4 fs-3">
+        <a href="#" class="text-white"><i class="bi bi-github"></i></a>
+        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="text-white"><i class="bi bi-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

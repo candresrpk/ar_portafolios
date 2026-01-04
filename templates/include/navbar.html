@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm sticky-top">
+  <div class="container-xl px-4">
+
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2 text-white"
+       href="{% url 'portafolios:home' %}">
+      <i class="bi bi-code-slash fs-4 text-white"></i>
+      <span>Andrés Peña</span>
+    </a>
+
+    <!-- TOGGLER -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- LINKS -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+      <!-- LEFT MENU -->
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-white"
+             href="{% url 'portafolios:home' %}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-white" href="#about">Sobre mí</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-white" href="#portfolio">Portafolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-white" href="#faq">Preguntas</a>
+        </li>
+      </ul>
+
+      <!-- RIGHT MENU (SESSION) -->
+      <div class="d-flex align-items-center gap-2">
+
+        {% if user.is_authenticated %}
+
+          <span class="fw-semibold text-white me-2">
+            Hola, {{ user.username }}
+          </span>
+
+          <a href="#"
+             class="btn btn-outline-light btn-sm">
+            Cerrar sesión
+          </a>
+
+        {% else %}
+
+          <a href="#"
+             class="btn btn-outline-light btn-sm">
+            Iniciar sesión
+          </a>
+
+          <a href="#"
+             class="btn btn-outline-warning btn-sm">
+            Crear cuenta
+          </a>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</nav>

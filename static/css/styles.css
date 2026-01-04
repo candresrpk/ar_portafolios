@@ -1,0 +1,92 @@
+/* =========================
+   HERO BASE
+========================= */
+
+.hero-slide {
+  height: 38vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* OVERLAY */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.35)
+  );
+  pointer-events: none;
+}
+
+/* CONTENT */
+.hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-box {
+  max-width: 520px;
+  padding: 1rem;
+}
+
+.hero-content a {
+  pointer-events: auto;
+}
+
+/* TEXT */
+.hero-title {
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.hero-text {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.9);
+}
+
+/* CONTROLS */
+.hero-control {
+  z-index: 5;
+  bottom: 1rem;
+  top: auto;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 992px) {
+  .hero-slide {
+    height: 40vh;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      to right,
+      rgba(0,0,0,0.65),
+      rgba(0,0,0,0.25)
+    );
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-text {
+    font-size: 1.1rem;
+  }
+
+  .hero-control {
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+}
