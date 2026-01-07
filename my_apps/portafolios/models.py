@@ -3,6 +3,21 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Tag(models.Model):
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'Etiqueta'
+        verbose_name_plural = 'Etiquetas'
+        
+    def __str__(self):
+        return f'{self.name}'
+
+
 class Project(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -10,6 +25,7 @@ class Project(models.Model):
     image = models.ImageField(upload_to='portafolio/images/')
     git_url = models.URLField(blank=True)
     top = models.BooleanField(default=False)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -89,5 +105,12 @@ class View(models.Model):
     def __str__(self):
         return f'{self.project} - {self.user}'
     
+
     
     
+### crear modelo para mostrar contenido readme dentro del proyecto
+### es decir, se va a mostrar instrucciones de manejar el proyecto
+### con imagenes
+### codigo
+### texto explicativo del proyecto
+### link al git del proyecto

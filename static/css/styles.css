@@ -90,3 +90,21 @@
     transform: translateY(50%);
   }
 }
+
+.slider-img {
+  height: 420px;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .slider-img {
+    height: 220px;
+  }
+}
+
+/* Caption legible */
+.slider-caption {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}

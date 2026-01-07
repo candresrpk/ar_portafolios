@@ -1,1 +1,120 @@
-{% extends './base.html' %}
+{% extends "../base.html" %}
+
+{% block title %}Proyectos{% endblock %}
+
+{% block content %}
+
+{# ================= HEADER + CREATE BUTTON ================= #}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+  <h2 class="fw-bold mb-0">Proyectos</h2>
+
+    {% comment %} CREAR VISTA PARA MANEJAR GRUPOS Y PERMISOS {% endcomment %}
+
+  {% if user.is_authenticated and user.is_staff %}
+    <a href="{% url 'portafolios:create' %}" class="btn btn-success">
+      <i class="bi bi-plus-circle me-1"></i>
+      Crear proyecto
+    </a>
+  {% endif %}
+</div>
+
+{# ================= SLIDER TOP PROJECTS ================= #}
+{% if top_projects %}
+<div id="topSlider" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+
+    {% for post in top_projects %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+      <a href="#"
+         class="text-decoration-none text-white d-block">
+
+        <img src="{{ post.image.url }}"
+             class="d-block w-100 slider-img"
+             alt="{{ post.title }}">
+
+        <div class="carousel-caption slider-caption">
+          <h5 class="fw-bold">{{ post.title }}</h5>
+          <p class="d-none d-md-block">
+            {{ post.description|truncatechars:120 }}
+          </p>
+        </div>
+
+      </a>
+
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <button class="carousel-control-prev" type="button"
+          data-bs-target="#topSlider" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <button class="carousel-control-next" type="button"
+          data-bs-target="#topSlider" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+{% endif %}
+
+{# ================= TAG FILTER ================= #}
+<div class="mb-4">
+  <h5 class="fw-bold mb-3">Filtrar por etiquetas</h5>
+
+  <div class="d-flex flex-wrap gap-2">
+    <a href="{% url 'portafolios:projects' %}"
+       class="btn btn-sm {% if not active_tag %}btn-dark{% else %}btn-outline-dark{% endif %}">
+      Todas
+    </a>
+
+    {% for tag in tags %}
+      <a href="?tag={{ tag.slug }}"
+         class="btn btn-sm {% if active_tag == tag.slug %}btn-primary{% else %}btn-outline-primary{% endif %}">
+        {{ tag.name }}
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{# ================= PROJECTS GRID ================= #}
+<div class="row">
+  {% for post in projects %}
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card h-100 shadow-sm">
+
+      {% if post.image %}
+      <img src="{{ post.image.url }}"
+           class="card-img-top"
+           style="height:200px; object-fit:cover;"
+           alt="{{ post.title }}">
+      {% endif %}
+
+      <div class="card-body">
+        <h5 class="card-title fw-bold">{{ post.title }}</h5>
+        <p class="card-text text-muted">
+          {{ post.description|truncatechars:100 }}
+        </p>
+      </div>
+
+      <div class="card-footer bg-white border-0">
+        {% for tag in post.tags.all %}
+          <span class="badge bg-secondary me-1">{{ tag.name }}</span>
+        {% empty %}
+          <span class="text-muted small">Sin etiquetas</span>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12">
+    <p class="text-center text-muted">
+      No hay proyectos disponibles.
+    </p>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
