@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Página en construcción{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="text-center">
+    <div class="mb-4">
+      <i class="bi bi-tools" style="font-size: 4rem;"></i>
+    </div>
+    <h1 class="fw-bold">Página en construcción</h1>
+    <p class="text-muted mt-3">
+      Esta sección aún no está disponible.<br>
+      Estamos trabajando para traerte algo increíble 🚀
+    </p>
+
+    <a href="{% url 'portafolios:home' %}" class="btn btn-outline-primary mt-3">
+      Volver
+    </a>
+  </div>
+</div>
+{% endblock %}

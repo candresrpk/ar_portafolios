@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Página no encontrada{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-center min-vh-75">
+    <div class="text-center">
+
+        <h1 class="display-1 fw-bold text-success">404</h1>
+        <p class="fs-4 fw-semibold">Página no encontrada</p>
+
+        <p class="text-muted mb-4">
+            El recurso que buscas no existe o fue movido.
+        </p>
+
+        <a href="{% url 'portafolios:project_list' %}"
+           class="btn btn-success">
+            <i class="bi bi-arrow-left"></i> Volver a proyectos
+        </a>
+
+    </div>
+</div>
+{% endblock %}
