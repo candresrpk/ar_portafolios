@@ -116,3 +116,46 @@ class View(models.Model):
 ### codigo
 ### texto explicativo del proyecto
 ### link al git del proyecto
+
+
+
+class ProjectEntry(models.Model):
+
+    CONTENT_TYPES = (
+        ('text', 'Texto'),
+        ('image', 'Imagen'),
+        ('mixed', 'Texto + Imagen'),
+    )
+
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="entries"
+    )
+    order = models.PositiveIntegerField()
+    content_type = models.CharField(
+        max_length=10,
+        choices=CONTENT_TYPES,
+        default='text'
+    )
+    content = models.TextField(blank=True)
+    image = models.ImageField(
+        upload_to='portafolio/content/',
+        blank=True,
+        null=True
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['project', 'order'],
+                name='unique_entry_order_per_project'
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.project} | Entrada #{self.order}'

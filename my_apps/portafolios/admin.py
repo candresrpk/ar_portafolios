@@ -1,5 +1,5 @@
 from django.contrib import admin
-from my_apps.portafolios.models import Project, Tag
+from my_apps.portafolios.models import Project, Tag, PorjectContent
 
 # Register your models here.
 
@@ -17,4 +17,11 @@ class ProjectAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     search_fields = ['name', 'slug']
+    list_per_page = 10
+    
+    
+@admin.register(PorjectContent)
+class PorjectContentAdmin(admin.ModelAdmin):
+    list_display = ['project', 'order']
+    search_fields = ['project']
     list_per_page = 10
