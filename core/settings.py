@@ -130,3 +130,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 TEMPLATES[0]["OPTIONS"]["context_processors"] += [
     "django.template.context_processors.request",
 ]
+
+
+# Redirección cuando un usuario NO está logueado
+LOGIN_URL = 'accounts:login'
+
+# Redirección después de iniciar sesión correctamente
+LOGIN_REDIRECT_URL = 'portafolios:projects'
+
+# Redirección después de cerrar sesión
+LOGOUT_REDIRECT_URL = 'accounts:login'

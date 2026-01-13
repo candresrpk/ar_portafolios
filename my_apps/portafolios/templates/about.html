@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sobre mí | AR Soluciones{% endblock %}
+
+{% block content %}
+
+<!-- HERO / PERFIL -->
+<section class="py-5"
+         style="background: linear-gradient(135deg, #198754, #20c997);">
+    <div class="container py-4">
+        <div class="row align-items-center">
+
+            <!-- Imagen -->
+            <div class="col-md-4 text-center mb-4 mb-md-0">
+                <div class="d-flex justify-content-center">
+                    <img src="{% static 'images/profile.jpg' %}"
+                         alt="Foto de Andrés"
+                         class="rounded-circle shadow-lg"
+                         style="
+                            width: 220px;
+                            height: 220px;
+                            object-fit: cover;
+                            border: 6px solid rgba(255,255,255,0.25);
+                         ">
+                </div>
+            </div>
+
+            <!-- Texto -->
+            <div class="col-md-8 text-white">
+                <h1 class="fw-bold mb-3">
+                    Hola, soy Andrés 👋
+                </h1>
+
+                <p class="lead mb-2">
+                    Desarrollador backend apasionado por crear soluciones inteligentes,
+                    escalables y con impacto real.
+                </p>
+
+                <p class="opacity-75">
+                    Creo en la tecnología como una herramienta para resolver problemas
+                    complejos de forma elegante, humana y eficiente.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- HABILIDADES -->
+<section class="py-5 bg-white">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Habilidades</h2>
+            <p class="text-muted">
+                Tecnologías y áreas en las que trabajo y sigo creciendo
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Backend -->
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card-body">
+                        <i class="bi bi-code-slash text-success fs-1"></i>
+                        <h6 class="mt-3 fw-bold">Backend</h6>
+                        <p class="text-muted small">
+                            Python, Django, FastAPI, APIs REST
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Science -->
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card-body">
+                        <i class="bi bi-graph-up text-success fs-1"></i>
+                        <h6 class="mt-3 fw-bold">Data Science</h6>
+                        <p class="text-muted small">
+                            Python, Pandas, NumPy, análisis de datos
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frontend -->
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card-body">
+                        <i class="bi bi-braces text-success fs-1"></i>
+                        <h6 class="mt-3 fw-bold">Frontend</h6>
+                        <p class="text-muted small">
+                            React, JavaScript, Bootstrap, Tailwind
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IA -->
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card-body">
+                        <i class="bi bi-cpu text-success fs-1"></i>
+                        <h6 class="mt-3 fw-bold">IA & Automatización</h6>
+                        <p class="text-muted small">
+                            OpenAI, asistentes inteligentes
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- SOBRE MÍ -->
+<section class="py-5 bg-light">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <h2 class="fw-bold mb-4 text-center">Sobre mí</h2>
+
+                <p class="fs-5">
+                    Me gusta construir software con propósito, diseñando sistemas
+                    claros, mantenibles y bien estructurados.
+                </p>
+
+                <p class="fs-5">
+                    Me interesa especialmente el cruce entre
+                    <strong>backend, automatización e inteligencia artificial</strong>,
+                    creando herramientas que resuelvan problemas reales.
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- IDEAS Y VISIÓN -->
+<section class="py-5 bg-white">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <h2 class="fw-bold mb-4 text-center">Ideas & Visión</h2>
+
+                <p class="fs-5">
+                    Me motiva desarrollar CRMs inteligentes, plataformas educativas,
+                    sistemas de encuestas avanzadas y asistentes conversacionales
+                    conectados a datos reales.
+                </p>
+
+                <p class="fs-5">
+                    Mi meta es seguir creciendo profesionalmente y aportar a proyectos
+                    ambiciosos donde la tecnología tenga impacto positivo.
+                </p>
+
+                <div class="text-center mt-4">
+                    <span class="badge bg-success fs-6 px-4 py-2">
+                        🚀 Construyendo soluciones con impacto
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

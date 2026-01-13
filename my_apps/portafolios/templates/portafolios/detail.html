@@ -1,1 +1,129 @@
-{% extends '../base.html' %}
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+
+<div class="container position-relative">
+
+    <!-- ===== HEADER ===== -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">{{ project.title }}</h1>
+        <p class="text-muted">{{ project.description }}</p>
+    </div>
+
+<!-- ===== ENTRADAS DEL PROYECTO ===== -->
+    <section class="mb-5">
+
+        {% for entry in project.entries.all %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+
+                    {% if entry.content_type == 'text' %}
+                        <p>{{ entry.content|linebreaks }}</p>
+
+                    {% elif entry.content_type == 'code' %}
+                        <pre class="bg-dark text-light p-3 rounded mb-0">
+                            <code>{{ entry.content }}</code>
+                        </pre>
+
+                    {% elif entry.content_type == 'link' %}
+                        <a href="{{ entry.content }}"
+                        target="_blank"
+                        rel="noopener"
+                        class="text-success fw-semibold">
+                            {{ entry.content }}
+                        </a>
+
+                    {% elif entry.content_type == 'image' %}
+                        <img src="{{ entry.image.url }}"
+                            class="img-fluid rounded"
+                            alt="Imagen del proyecto">
+                    {% endif %}
+
+                </div>
+            </div>
+
+        {% empty %}
+            <div class="text-center py-5 text-muted">
+                <h5>No se han creado entradas</h5>
+                <p>Crea la primera entrada para este proyecto 🚀</p>
+            </div>
+        {% endfor %}
+
+    </section>
+
+
+    <hr class="my-5">
+
+    <!-- ===== COMENTARIOS ===== -->
+    <section>
+
+        <h4 class="mb-4">Comentarios</h4>
+
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="comment-card mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <div class="fw-semibold">
+                            <i class="bi bi-person-circle me-1"></i>
+                            {{ comment.user.username }}
+                        </div>
+                        <small class="text-muted">
+                            {{ comment.created_at|date:"d M Y H:i" }}
+                        </small>
+                    </div>
+                    <p class="mb-0">
+                        {{ comment.content|linebreaks }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">
+                No hay comentarios aún.
+            </p>
+        {% endif %}
+
+
+        <!-- ===== FORMULARIO DE COMENTARIOS ===== -->
+        {% if user.is_authenticated %}
+            <form method="post"
+                  action="{% url 'portafolios:add_comment' project.id %}"
+                  class="mt-4">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    {{ comment_form.content }}
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Comentar
+                </button>
+
+            </form>
+        {% else %}
+            <div class="alert alert-info mt-4">
+                Inicia sesión o crea una cuenta para comentar.
+            </div>
+        {% endif %}
+
+    </section>
+
+    <!-- ===== BOTÓN FLOTANTE AGREGAR ENTRADA ===== -->
+    {% if can_add_entry %}
+        <div class="fab-container">
+            <a href="{% url 'portafolios:add_entry' project.id %}"
+            class="btn btn-success fab-btn shadow-lg"
+            title="Agregar entrada">
+                <i class="bi bi-plus-lg"></i>
+            </a>
+            <span class="fab-label d-none d-md-inline">
+                Agregar entrada
+            </span>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

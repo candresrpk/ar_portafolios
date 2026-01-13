@@ -11,6 +11,7 @@ handler404 = custom_404_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('my_apps.portafolios.urls')),
+    path('accounts/', include('my_apps.usuarios.urls')),
 ]
 
 

@@ -87,7 +87,7 @@ class Comment(models.Model):
         verbose_name_plural = 'Comentarios'
         
     def __str__(self):
-        return f'{self.user} - {self.project}'
+        return f'{self.user} - {self.project} - {self.content}'
     
     
 
@@ -119,13 +119,13 @@ class View(models.Model):
 
 
 
-class ProjectEntry(models.Model):
+class Entry(models.Model):
 
-    CONTENT_TYPES = (
-        ('text', 'Texto'),
-        ('image', 'Imagen'),
-        ('mixed', 'Texto + Imagen'),
-    )
+    class ContentTypes(models.TextChoices):
+        TEXT = 'text'
+        IMAGE = 'image'
+        CODE = 'code'
+        LINK = 'link'
 
     project = models.ForeignKey(
         Project,
@@ -135,8 +135,8 @@ class ProjectEntry(models.Model):
     order = models.PositiveIntegerField()
     content_type = models.CharField(
         max_length=10,
-        choices=CONTENT_TYPES,
-        default='text'
+        choices=ContentTypes.choices,
+        default=ContentTypes.TEXT
     )
     content = models.TextField(blank=True)
     image = models.ImageField(

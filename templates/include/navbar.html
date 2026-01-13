@@ -24,7 +24,7 @@
              href="{% url 'portafolios:home' %}">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-white" href="{% url "portafolios:under_construction" %}">Sobre mí</a>
+          <a class="nav-link fw-semibold text-white" href="{% url "portafolios:about" %}">Sobre mí</a>
         </li>
         <li class="nav-item">
           <a class="nav-link fw-semibold text-white" href={% url "portafolios:projects" %}>Portafolio</a>
@@ -43,19 +43,19 @@
             Hola, {{ user.username }}
           </span>
 
-          <a href="#"
+          <a href="{% url 'accounts:logout' %}"
              class="btn btn-outline-light btn-sm">
             Cerrar sesión
           </a>
 
         {% else %}
 
-          <a href="#"
+          <a href="{% url 'accounts:login' %}"
              class="btn btn-outline-light btn-sm">
             Iniciar sesión
           </a>
 
-          <a href="#"
+          <a href="{% url 'accounts:signup' %}"
              class="btn btn-outline-warning btn-sm">
             Crear cuenta
           </a>
