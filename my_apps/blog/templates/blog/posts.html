@@ -103,4 +103,15 @@
     {% endif %}
 
 </div>
+
+<!-- ===== BOTÓN FLOTANTE CREAR POST ===== -->
+{% if user.is_authenticated and user.is_staff %}
+<a href="{% url 'blog:create_post' %}"
+   class="btn btn-success rounded-pill shadow-lg position-fixed d-flex align-items-center gap-2"
+   style="bottom: 24px; right: 24px; z-index: 1050;">
+    <i class="bi bi-plus-lg"></i>
+    <span class="d-none d-md-inline">Agregar post</span>
+</a>
+{% endif %}
+
 {% endblock %}

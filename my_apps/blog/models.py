@@ -91,7 +91,18 @@ class PostContent(models.Model):
         verbose_name = 'Entrada'
         verbose_name_plural = 'Entradas'
         ordering = ['order']
-        
+    
+    
+    # order auto increment
+    def save(self, *args, **kwargs):
+        if not self.id:
+            try:
+                last_entry = PostContent.objects.filter(post=self.post).latest('order')
+                self.order = last_entry.order + 1
+            except PostContent.DoesNotExist:
+                self.order = 1
+        super(PostContent, self).save(*args, **kwargs)
+            
         
     def __str__(self):
         return f'{self.post} | Entrada #{self.order}'

@@ -1,0 +1,101 @@
+{% extends "../base.html" %}
+
+{% block title %}Crear Post{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+
+            <div class="card shadow-sm rounded-4 border-0">
+                <div class="card-body p-4 p-md-5">
+
+                    <h3 class="text-success mb-4 fw-bold">
+                        ✍️ Crear nuevo post
+                    </h3>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- TÍTULO -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                {{ form.title.label }}
+                            </label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.title.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- CONTENIDO -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                {{ form.body.label }}
+                            </label>
+                            {{ form.body }}
+                            {% if form.body.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.body.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- IMAGEN -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                {{ form.image.label }}
+                            </label>
+                            {{ form.image }}
+                            <div class="form-text">
+                                Imagen destacada del post (opcional)
+                            </div>
+                            {% if form.image.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.image.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- TAGS -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                {{ form.tags.label }}
+                            </label>
+                            {{ form.tags }}
+                            <div class="form-text">
+                                Mantén presionado <kbd>Ctrl</kbd> / <kbd>Cmd</kbd> para seleccionar varios
+                            </div>
+                            {% if form.tags.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.tags.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- BOTONES -->
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="{% url 'blog:post_list' %}"
+                               class="btn btn-outline-secondary">
+                                ← Cancelar
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success px-4">
+                                Publicar post
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

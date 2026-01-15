@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from my_apps.blog.models import Post, Tag
-
+from my_apps.blog.forms import CreatePostForm
+from django.contrib import messages
 
 def PostListView(request):
     
@@ -32,3 +34,33 @@ def PostListView(request):
     }
     
     return render(request, './blog/posts.html', context)
+
+
+@login_required
+def create_post_view(request):
+
+    
+    if not request.user.is_staff:
+        messages.error(
+            request,
+            '❌ No tienes permisos para crear posts.'
+        )
+        return redirect('blog:post_list')
+
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST, request.FILES)  # 🔥 AQUÍ
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            form.save_m2m()
+
+            messages.success(request, '✅ Post creado correctamente.')
+            return redirect('blog:post_list')
+        else:
+            messages.error(request, '❌ Hay errores en el formulario.')
+    else:
+        form = CreatePostForm()
+    return render(request, 'blog/create.html', {
+        'form': form
+    })
