@@ -66,6 +66,52 @@ def createPostView(request):
     })
     
     
+    
+def deletePostView(request, id):
+    
+    post = get_object_or_404(Post, id=id)
+    
+    if request.user != post.author:
+        messages.error(request, 'No tienes permisos para eliminar posts.')
+        return redirect('blog:post_list')
+    
+    post.delete()
+    messages.success(request, 'Post eliminado correctamente.')
+    return redirect('blog:post_list')
+    
+    
+    
+def editPostView(request, id):
+    
+    post = get_object_or_404(Post, id=id)
+    
+    if request.user != post.author:
+        messages.error(request, 'No tienes permisos para editar posts.')
+        return redirect('blog:post_list')
+    
+    context = {
+        'post': post
+    }
+    
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST or None, request.FILES or None, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Post editado correctamente.')
+            return redirect('blog:post_list')
+        else:
+            messages.error(request, '❌ Hay errores en el formulario.')
+            context['form'] = form
+    else:
+        form = CreatePostForm(instance=post)
+        context['form'] = form
+    return render(request, 'posts/edit.html', context)    
+    
+
+
+### ENTRYS
+
+
 def postDetailView(request, slug):
     post = get_object_or_404(
         Post.objects.select_related('author').prefetch_related('tags'),
@@ -113,3 +159,43 @@ def createEntryView(request, id):
         form = ContentForm()
         context['form'] = form
     return render(request, 'posts/entry/create.html', context)
+
+
+def editEntryView(request, id):
+    
+    entry = get_object_or_404(PostContent, id=id)
+    
+    if request.user != entry.post.author:
+        messages.error(request, 'No tienes permisos para editar entradas.')
+        return redirect(entry.post.get_absolute_url())
+    
+    context = {
+        'entry': entry
+    }
+    if request.method == 'POST':
+        form = ContentForm(request.POST or None, request.FILES or None, instance=entry)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Entrada editada correctamente.')
+            return redirect(entry.post.get_absolute_url())
+        else:
+            messages.error(request, '❌ Hay errores en el formulario.')
+            context['form'] = form
+            return render(request, 'posts/entry/edit.html', context)
+    else:
+        form = ContentForm(instance=entry)
+        context['form'] = form
+    return render(request, 'posts/entry/edit.html', context)
+
+
+def deleteEntryView(request, id):
+    
+    entry = get_object_or_404(PostContent, id=id)
+    
+    if request.user != entry.post.author:
+        messages.error(request, 'No tienes permisos para eliminar entradas.')
+        return redirect(entry.post.get_absolute_url())
+    
+    entry.delete()
+    messages.success(request, 'Entrada eliminada correctamente.')
+    return redirect(entry.post.get_absolute_url())

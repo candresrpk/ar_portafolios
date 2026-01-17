@@ -5,115 +5,183 @@
 
 {% block content %}
 
+<style>
+.entry-actions {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.entry-card:hover .entry-actions {
+    opacity: 1;
+}
+</style>
+
 <div class="container py-5">
 
 <!-- ===== POST HEADER ===== -->
+
 <div class="mb-5">
+
+    <!-- BOTÓN VOLVER -->
+    <div class="mb-3">
+        <a href="{% url 'blog:post_list' %}"
+        class="btn btn-sm btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left"></i> Volver al blog
+        </a>
+    </div>
+
+
     <h1 class="fw-bold">{{ post.title }}</h1>
 
-    <div class="text-muted mb-3">
-        {{ post.created_at|date:"d M Y" }} · {{ post.author.username }}
-    </div>
 
-    {% if post.tags.all %}
-    <div class="mb-3">
-        {% for tag in post.tags.all %}
-            <span class="badge rounded-pill bg-success-subtle text-success me-1">
-                {{ tag.name }}
-            </span>
-        {% endfor %}
-    </div>
-    {% endif %}
+<div class="text-muted mb-3">
+    {{ post.created_at|date:"d M Y" }} · {{ post.author.username }}
+</div>
 
-    {% if request.user == post.author %}
-    <a href="{% url 'blog:add_entry' post.id %}"
-       class="btn btn-sm btn-success rounded-pill shadow-sm">
-        ➕ Agregar entrada
-    </a>
-    {% endif %}
+{% if post.tags.all %}
+<div class="mb-3">
+    {% for tag in post.tags.all %}
+        <span class="badge rounded-pill bg-success-subtle text-success me-1">
+            {{ tag.name }}
+        </span>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if request.user == post.author %}
+<a href="{% url 'blog:add_entry' post.id %}"
+   class="btn btn-sm btn-success rounded-pill shadow-sm">
+    ➕ Agregar entrada
+</a>
+{% endif %}
+
+
 </div>
 
 <!-- ===== ENTRADAS ===== -->
+
 <section>
 
-    {% for entry in contents %}
-    <article class="card mb-4 border-0 shadow-sm rounded-4 position-relative overflow-hidden">
+{% for entry in contents %}
 
-        <!-- BADGE TIPO -->
-        <span class="position-absolute top-0 end-0 m-3 badge rounded-pill
-            {% if entry.content_type == 'text' %} bg-warning text-dark
-            {% elif entry.content_type == 'image' %} bg-warning text-dark
-            {% elif entry.content_type == 'code' %} bg-danger
-            {% elif entry.content_type == 'link' %} bg-secondary
-            {% endif %}
-        ">
-            {{ entry.get_content_type_display }}
-        </span>
+<article class="card mb-4 border-0 shadow-sm rounded-4 position-relative overflow-hidden entry-card">
 
-        <div class="card-body p-4">
+<!-- ===== ACCIONES (SOLO OWNER) ===== -->
+{% if request.user == post.author %}
+<div class="entry-actions position-absolute top-0 start-0 m-3 d-flex gap-2">
 
-            <!-- IDENTIFICADOR DE ENTRADA -->
-            <div class="small text-muted mb-1">
-                Entrada #{{ entry.order }}
-            </div>
+    <!-- EDITAR -->
+    <a href="{% url 'blog:edit_entry' entry.id %}"
+       class="btn btn-light btn-sm shadow-sm"
+       data-bs-toggle="tooltip"
+       title="Editar entrada">
+        <i class="bi bi-pencil-square"></i>
+    </a>
 
-            <!-- TÍTULO DE LA ENTRADA -->
-            {% if entry.title %}
-            <h5 class="fw-semibold mb-3">
-                {{ entry.title }}
-            </h5>
-            {% endif %}
+    <!-- ELIMINAR -->
+    <a href="{% url 'blog:delete_entry' entry.id %}"
+       class="btn btn-light btn-sm shadow-sm text-danger"
+       data-bs-toggle="tooltip"
+       title="Eliminar entrada"
+       onclick="return confirm('¿Eliminar esta entrada?');">
+        <i class="bi bi-trash"></i>
+    </a>
 
-            <!-- TEXTO -->
-            {% if entry.content_type == 'text' %}
-                <div class="fs-6 text-secondary">
-                    {{ entry.content|linebreaks }}
-                </div>
-            {% endif %}
-
-            <!-- IMAGEN -->
-            {% if entry.content_type == 'image' %}
-                {% if entry.content %}
-                <div class="text-secondary mb-3">
-                    {{ entry.content|linebreaks }}
-                </div>
-                {% endif %}
-
-                {% if entry.image %}
-                <div class="text-center">
-                    <img src="{{ entry.image.url }}"
-                         class="img-fluid rounded-4 shadow-sm"
-                         alt="Imagen de la entrada">
-                </div>
-                {% endif %}
-            {% endif %}
-
-            <!-- CÓDIGO -->
-            {% if entry.content_type == 'code' %}
-                <pre class="bg-dark text-light p-4 rounded-4 small shadow-sm">
-<code>{{ entry.content }}</code> </pre>
+</div>
 {% endif %}
 
-            <!-- LINK -->
-            {% if entry.content_type == 'link' %}
-                <a href="{{ entry.content }}"
-                   target="_blank"
-                   class="btn btn-outline-success btn-sm">
-                    🔗 Abrir enlace
-                </a>
-            {% endif %}
+<!-- ===== BADGE TIPO ===== -->
+<span class="position-absolute top-0 end-0 m-3 badge rounded-pill
+    {% if entry.content_type == 'text' or entry.content_type == 'image' %}
+        bg-warning text-dark
+    {% elif entry.content_type == 'code' %}
+        bg-danger
+    {% elif entry.content_type == 'link' %}
+        bg-secondary
+    {% endif %}
+">
+    {{ entry.get_content_type_display }}
+</span>
 
-        </div>
-    </article>
+<div class="card-body p-4">
 
-    {% empty %}
-    <div class="text-center py-5 text-muted">
-        <h5>No hay entradas aún</h5>
-        <p>Este post todavía no tiene contenido.</p>
+    <!-- ORDEN -->
+    <div class="small text-muted mb-1">
+        Entrada #{{ entry.order }}
     </div>
-    {% endfor %}
+
+    <!-- TÍTULO -->
+    {% if entry.title %}
+    <h5 class="fw-semibold mb-3">
+        {{ entry.title }}
+    </h5>
+    {% endif %}
+
+    <!-- TEXTO -->
+    {% if entry.content_type == 'text' %}
+        <div class="fs-6 text-secondary">
+            {{ entry.content|linebreaks }}
+        </div>
+    {% endif %}
+
+    <!-- IMAGEN -->
+    {% if entry.content_type == 'image' %}
+        {% if entry.content %}
+        <div class="text-secondary mb-3">
+            {{ entry.content|linebreaks }}
+        </div>
+        {% endif %}
+
+        {% if entry.image %}
+        <div class="text-center">
+            <img src="{{ entry.image.url }}"
+                 class="img-fluid rounded-4 shadow-sm"
+                 alt="Imagen de la entrada">
+        </div>
+        {% endif %}
+    {% endif %}
+
+    <!-- CÓDIGO -->
+    {% if entry.content_type == 'code' %}
+        <pre class="bg-dark text-light p-4 rounded-4 small shadow-sm">
+
+
+<code>{{ entry.content }}</code></pre>
+{% endif %}
+
+
+    <!-- LINK -->
+    {% if entry.content_type == 'link' %}
+        <a href="{{ entry.content }}"
+           target="_blank"
+           class="btn btn-outline-success btn-sm">
+            🔗 Abrir enlace
+        </a>
+    {% endif %}
+
+</div>
+
+
+</article>
+
+{% empty %}
+
+<div class="text-center py-5 text-muted">
+    <h5>No hay entradas aún</h5>
+    <p>Este post todavía no tiene contenido.</p>
+</div>
+{% endfor %}
 
 </section>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+})
+</script>
+
 {% endblock %}

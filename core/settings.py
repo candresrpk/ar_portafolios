@@ -27,6 +27,7 @@ MY_APPS = [
     'my_apps.usuarios.apps.UsuariosConfig',
     'my_apps.portafolios.apps.PortafoliosConfig',
     'my_apps.blog.apps.BlogConfig',
+    'my_apps.taskedo.apps.TaskedoConfig',
 ]
 
 

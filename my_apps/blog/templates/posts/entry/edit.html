@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Editar entrada | Blog{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="max-width: 900px;">
+
+ 
+<!-- HEADER -->
+<div class="mb-4">
+    <h2 class="fw-bold">✏️ Editar entrada</h2>
+    <p class="text-muted mb-0">
+        Post: <strong>{{ entry.post.title }}</strong> · Entrada #{{ entry.order }}
+    </p>
+</div>
+
+<!-- FORM -->
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- TÍTULO -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    {{ form.title.label }}
+                </label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="text-danger small mt-1">
+                        {{ form.title.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- TIPO DE CONTENIDO -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    {{ form.content_type.label }}
+                </label>
+                {{ form.content_type }}
+                {% if form.content_type.errors %}
+                    <div class="text-danger small mt-1">
+                        {{ form.content_type.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- CONTENIDO -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    {{ form.content.label }}
+                </label>
+                {{ form.content }}
+                <div class="form-text">
+                    Texto descriptivo, código o enlace según el tipo.
+                </div>
+                {% if form.content.errors %}
+                    <div class="text-danger small mt-1">
+                        {{ form.content.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- IMAGEN ACTUAL -->
+            {% if entry.image %}
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Imagen actual
+                </label>
+                <div class="mb-2">
+                    <img src="{{ entry.image.url }}"
+                         class="img-fluid rounded-3 shadow-sm"
+                         style="max-height: 250px;"
+                         alt="Imagen actual">
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- NUEVA IMAGEN -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">
+                    {{ form.image.label }}
+                </label>
+                {{ form.image }}
+                <div class="form-text">
+                    Si subes una nueva imagen, reemplazará la actual.
+                </div>
+                {% if form.image.errors %}
+                    <div class="text-danger small mt-1">
+                        {{ form.image.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- BOTONES -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ entry.post.get_absolute_url }}"
+                   class="btn btn-outline-secondary">
+                    ← Volver al post
+                </a>
+
+                <button type="submit"
+                        class="btn btn-success px-4 rounded-pill shadow-sm">
+                    💾 Guardar cambios
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+ 
+
+</div>
+{% endblock %}
