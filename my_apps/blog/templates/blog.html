@@ -1,4 +1,4 @@
-{% extends '../base.html' %}
+{% extends './base.html' %}
 
 {% load static %}
 {% block title %}Blog{% endblock %}
@@ -90,7 +90,7 @@
     <!-- ===== PAGINACIÓN ===== -->
     <div class="mt-5">
         {% with page_obj=page_obj %}
-            {% include "../include/paginator.html" %}
+            {% include "./include/paginator.html" %}
         {% endwith %}
     </div>
 

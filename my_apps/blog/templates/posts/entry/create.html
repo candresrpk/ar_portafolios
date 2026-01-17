@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar entrada | {{ post.title }}{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+
+                <!-- HEADER -->
+                <div class="mb-4 text-center">
+                    <h3 class="fw-bold text-success">
+                        Nueva entrada
+                    </h3>
+                    <p class="text-muted mb-0">
+                        Post: <strong>{{ post.title }}</strong>
+                    </p>
+                </div>
+
+                <!-- FORM -->
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+
+                    <!-- TITLE -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            {{ form.title.label }}
+                        </label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.title.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- CONTENT TYPE -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            {{ form.content_type.label }}
+                        </label>
+                        {{ form.content_type }}
+                        {% if form.content_type.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.content_type.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            {{ form.content.label }}
+                        </label>
+                        {{ form.content }}
+                        <div class="form-text">
+                            Describe de qué trata la entrada.  
+                            Este texto se mostrará incluso para imágenes o código.
+                        </div>
+                        {% if form.content.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.content.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- IMAGE -->
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">
+                            {{ form.image.label }}
+                        </label>
+                        {{ form.image }}
+                        <div class="form-text">
+                            Solo requerido si el tipo de contenido es imagen.
+                        </div>
+                        {% if form.image.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.image.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ post.get_absolute_url }}"
+                           class="btn btn-outline-secondary">
+                            ← Volver al post
+                        </a>
+
+                        <button type="submit"
+                                class="btn btn-success px-4">
+                            Crear entrada
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock %}

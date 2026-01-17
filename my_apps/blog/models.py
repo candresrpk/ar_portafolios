@@ -53,8 +53,8 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
     
     
-    # def get_absolute_url(self):
-    #     return reverse('blog:post_detail', args=[self.slug])   
+    def get_absolute_url(self):
+        return reverse('blog:post_detail', args=[self.slug])   
     
     
     def __str__(self):
@@ -70,6 +70,7 @@ class PostContent(models.Model):
         CODE = 'code'
         LINK = 'link'
     
+    title = models.CharField(max_length=200, blank=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     order = models.IntegerField()
     content_type = models.CharField(

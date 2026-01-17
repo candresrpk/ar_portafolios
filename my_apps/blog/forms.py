@@ -56,18 +56,19 @@ class TagForm(forms.ModelForm):
 class ContentForm(forms.ModelForm):
     class Meta:
         model = PostContent
-        fields = ['content_type', 'content', 'image']
+        fields = ['title','content_type', 'content', 'image']
         
         labels = {
+            'title': 'Título',
             'content_type': 'Tipo de contenido',
             'content': 'Contenido',
             'image': 'Imagen',
         }
         
         widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content_type': forms.Select(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
-        
         

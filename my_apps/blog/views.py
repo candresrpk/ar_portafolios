@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
-from my_apps.blog.models import Post, Tag
-from my_apps.blog.forms import CreatePostForm
+from my_apps.blog.models import Post, Tag, PostContent
+from my_apps.blog.forms import CreatePostForm, ContentForm
 from django.contrib import messages
 
 def PostListView(request):
@@ -33,11 +33,11 @@ def PostListView(request):
         'active_tag': active_tag,
     }
     
-    return render(request, './blog/posts.html', context)
+    return render(request, './blog.html', context)
 
 
 @login_required
-def create_post_view(request):
+def createPostView(request):
 
     
     if not request.user.is_staff:
@@ -61,6 +61,55 @@ def create_post_view(request):
             messages.error(request, '❌ Hay errores en el formulario.')
     else:
         form = CreatePostForm()
-    return render(request, 'blog/create.html', {
+    return render(request, 'posts/create.html', {
         'form': form
     })
+    
+    
+def postDetailView(request, slug):
+    post = get_object_or_404(
+        Post.objects.select_related('author').prefetch_related('tags'),
+        slug=slug
+    )
+
+    contents = (
+        PostContent.objects
+        .filter(post=post)
+        .order_by('order')
+    )
+
+    context = {
+        'post': post,
+        'contents': contents,
+    }
+    return render(request, 'posts/detail.html', context)
+
+
+
+def createEntryView(request, id):
+    
+    post = get_object_or_404(Post, id=id)
+    
+    if request.user != post.author:
+        messages.error(request, 'No tienes permisos para agregar entradas.')
+        return redirect(post.get_absolute_url())
+    
+    context = {
+        'post': post
+    }
+    if request.method == 'POST':
+        form = ContentForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            content = form.save(commit=False)
+            content.post = post
+            content.save()
+            messages.success(request, 'Entrada creada correctamente.')
+            return redirect(post.get_absolute_url())
+        else:
+            messages.error(request, '❌ Hay errores en el formulario.')
+            context['form'] = form
+            return render(request, 'posts/entry/create.html', context)
+    else:
+        form = ContentForm()
+        context['form'] = form
+    return render(request, 'posts/entry/create.html', context)
