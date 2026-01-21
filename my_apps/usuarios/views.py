@@ -1,10 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User, Group
 from django.contrib import messages
-# Create your views here.
+
+from my_apps.usuarios.models import Membership, Organization, Profile
 
 
 
@@ -57,7 +58,25 @@ def logoutView(request):
 
 
 
+@login_required
 def profileView(request):
+    
+    profile = Profile.objects.get(user=request.user)
+    
+    context = {
+        'profile': profile
+    }    
+    
+    
+    return redirect('portafolios:under_construction', profile)
+
+
+def OrganizationView(request):
+    return redirect('portafolios:under_construction')
+
+
+
+def MemeberShipView(request):
     return redirect('portafolios:under_construction')
 
 
