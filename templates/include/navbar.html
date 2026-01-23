@@ -41,6 +41,7 @@
 
           <span class="fw-semibold text-white me-2">
             Hola, {{ user.username }}
+            <a class="btn btn-outline-light" href="{% url 'accounts:profile' %}">See Profile</a>
           </span>
 
           <a href="{% url 'accounts:logout' %}"

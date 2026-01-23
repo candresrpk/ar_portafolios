@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from my_apps.usuarios.models import Membership, Organization, Profile
-
+from django.contrib.auth.models import User
 
 
 def loginView(request):
@@ -61,14 +61,14 @@ def logoutView(request):
 @login_required
 def profileView(request):
     
-    profile = Profile.objects.get(user=request.user)
+    profile = User.objects.get(id=request.user.id).profile
+    
     
     context = {
         'profile': profile
-    }    
-    
-    
-    return redirect('portafolios:under_construction', profile)
+    }
+
+    return render(request, 'profile/profile.html', context)
 
 
 def OrganizationView(request):
