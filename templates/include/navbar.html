@@ -2,52 +2,86 @@
   <div class="container-xl px-4">
 
     <!-- LOGO -->
-    <a class="navbar-brand fw-bold d-flex align-items-center gap-2 text-white"
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2"
        href="{% url 'portafolios:home' %}">
-      <i class="bi bi-code-slash fs-4 text-white"></i>
+      <i class="bi bi-code-slash fs-4"></i>
       <span>Andrés Peña</span>
     </a>
 
     <!-- TOGGLER -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar">
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- LINKS -->
+    <!-- NAV CONTENT -->
     <div class="collapse navbar-collapse" id="mainNavbar">
 
-      <!-- LEFT MENU -->
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+      <!-- CENTER MENU -->
+      <ul class="navbar-nav mx-auto gap-lg-3 text-center">
+
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-white"
-             href="{% url 'portafolios:home' %}">Inicio</a>
+          <a class="nav-link fw-semibold {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+             href="{% url 'portafolios:home' %}">
+            Inicio
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-white" href="{% url "portafolios:about" %}">Sobre mí</a>
+          <a class="nav-link fw-semibold {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+             href="{% url 'portafolios:about' %}">
+            Sobre mí
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-white" href={% url "portafolios:projects" %}>Portafolio</a>
+          <a class="nav-link fw-semibold {% if request.resolver_match.url_name == 'projects' %}active{% endif %}"
+             href="{% url 'portafolios:projects' %}">
+            Portafolio
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-white" href="{% url "blog:post_list" %}">Blog</a>
+          <a class="nav-link fw-semibold"
+             href="{% url 'blog:post_list' %}">
+            Blog
+          </a>
         </li>
+
       </ul>
 
-      <!-- RIGHT MENU (SESSION) -->
+      <!-- RIGHT MENU -->
       <div class="d-flex align-items-center gap-2">
 
         {% if user.is_authenticated %}
 
-          <span class="fw-semibold text-white me-2">
-            Hola, {{ user.username }}
-            <a class="btn btn-outline-light" href="{% url 'accounts:profile' %}">See Profile</a>
-          </span>
+          <!-- USER DROPDOWN -->
+          <div class="dropdown">
+            <button class="btn btn-outline-light btn-sm dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown">
+              {{ user.username }}
+            </button>
 
-          <a href="{% url 'accounts:logout' %}"
-             class="btn btn-outline-light btn-sm">
-            Cerrar sesión
-          </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:profile' %}">
+                  <i class="bi bi-person me-2"></i>Perfil
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger"
+                   href="{% url 'accounts:logout' %}">
+                  <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                </a>
+              </li>
+            </ul>
+          </div>
 
         {% else %}
 
@@ -57,13 +91,14 @@
           </a>
 
           <a href="{% url 'accounts:signup' %}"
-             class="btn btn-outline-warning btn-sm">
+             class="btn btn-warning btn-sm text-dark fw-semibold">
             Crear cuenta
           </a>
 
         {% endif %}
 
       </div>
+
     </div>
   </div>
 </nav>

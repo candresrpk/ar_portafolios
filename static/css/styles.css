@@ -146,3 +146,41 @@
     padding: 14px;
     background-color: #ffffff;
 }
+
+/* SIDEBAR */
+.sidebar {
+width: 260px;
+transition: all 0.3s ease;
+}
+
+
+.sidebar .nav-link {
+color: rgba(255, 255, 255, 0.85);
+border-radius: 0.5rem;
+padding: 0.6rem 0.8rem;
+transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+
+/* Hover desktop */
+.sidebar .nav-link:hover {
+background-color: rgba(255, 255, 255, 0.15);
+color: #fff;
+transform: translateX(4px);
+}
+
+
+/* Active link */
+.sidebar .nav-link.active {
+background-color: #ffffff;
+color: #198754; /* success */
+font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .sidebar .nav-link:hover {
+    background-color: rgba(255,255,255,.15);
+    transform: translateX(4px);
+    transition: all .2s ease;
+  }
+}

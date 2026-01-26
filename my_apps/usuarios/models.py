@@ -28,17 +28,26 @@ class Organization(models.Model):
 class Membership(models.Model):
     
     
-    class roleChoices(models.Choices):
-        admin = 'admin'
-        member = 'member'
+    class RoleChoices(models.TextChoices):
+        ADMIN = 'admin', 'Admin'
+        EDITOR = 'editor', 'Editor'
+        MEMBER = 'member', 'Member'
     
     
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='memberships'
+    )
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.CASCADE,
+        related_name='memberships'
+    )
     role = models.CharField(
         max_length=20,
-        choices=roleChoices.choices,
-        default=roleChoices.member
+        choices=RoleChoices.choices,
+        default=RoleChoices.MEMBER
     )
     joined_at = models.DateTimeField(auto_now_add=True)
 

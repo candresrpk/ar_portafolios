@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User, Group
@@ -60,15 +61,8 @@ def logoutView(request):
 
 @login_required
 def profileView(request):
-    
-    profile = User.objects.get(id=request.user.id).profile
-    
-    
-    context = {
-        'profile': profile
-    }
-
-    return render(request, 'profile/profile.html', context)
+    profile = get_object_or_404(Profile, user=request.user)
+    return render(request, 'profile/profile.html', {'profile': profile})
 
 
 def OrganizationView(request):

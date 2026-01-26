@@ -1,0 +1,22 @@
+<!-- SIDEBAR MOBILE (OFFCANVAS) -->
+<div class="offcanvas offcanvas-start bg-success text-white d-md-none"
+     tabindex="-1"
+     id="sidebarMobile"
+     aria-labelledby="sidebarMobileLabel">
+
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title fw-bold" id="sidebarMobileLabel">
+            <i class="bi bi-speedometer2 me-2"></i>
+            Dashboard
+        </h5>
+
+        <button type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body p-3">
+        {% include "partials/sidebar_links.html" %}
+    </div>
+</div>

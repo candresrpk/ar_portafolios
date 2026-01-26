@@ -1,110 +1,82 @@
 <!doctype html>
 {% load static %}
 <html lang="en">
-    <head>
-        <title>AR - {% block title %}{% endblock  %}</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <link rel="icon" type="image/png" href="{% static 'images/ar_2.png' %}">
+<head>
+    <title>AR · {% block title %}{% endblock %}</title>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
-        <!-- Bootstrap Icons -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'images/ar_2.png' %}">
 
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-        {% block head %}{% endblock  %}
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+          rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-    </head>
+    {% block head %}{% endblock %}
+</head>
 
-    <body class="d-flex flex-column min-vh-100">
-        <header>
-            {% include "./include/navbar.html" %}
-        </header>
-        <main class="container my-5 flex-fill">
+<body class="d-flex flex-column min-vh-100">
 
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
+<header>
+    {% include "include/navbar.html" %}
+</header>
 
+<main class="container my-5 flex-fill">
 
-            {% block content %}
-            {% endblock  %}
-
-
-        </main>
-        <footer class="bg-success text-white mt-5">
-            <div class="container-xl px-4 py-4">
-
-                <div class="row align-items-center">
-
-                    <!-- LEFT -->
-                    <div class="col-md-6 mb-3 mb-md-0">
-                        <span class="fw-semibold">
-                        © {{ now|date:"Y" }} Andrés Peña
-                        </span>
-                        <p class="mb-0 small opacity-75">
-                        Desarrollador Backend · Data · IA
-                        </p>
-                    </div>
-
-                    <!-- RIGHT -->
-                    <div class="col-md-6 text-md-end">
-                        
-                        <a href="https://github.com/" target="_blank"
-                        class="text-white fs-5 me-3">
-
-                            <i class="bi bi-github"></i>
-
-                        </a>
-                        <a href="https://linkedin.com/" target="_blank"
-                        class="text-white fs-5 me-3">
-                            <i class="bi bi-linkedin"></i>
-                        </a>
-
-                        <a href="mailto:contacto@email.com"
-                        class="text-white fs-5">
-                            <i class="bi bi-envelope"></i>
-                        </a>
-                        
-                    </div>
-
-                </div>
-
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
-            </footer>
+        {% endfor %}
+    {% endif %}
 
-        <!-- Bootstrap JavaScript Libraries -->
+    {% block content %}{% endblock %}
+</main>
 
-        {% block scripts %}{% endblock  %}
+<footer class="bg-success text-white mt-auto">
+    <div class="container-xl px-4 py-4">
+        <div class="row align-items-center">
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
+            <div class="col-md-6 mb-3 mb-md-0">
+                <strong>© {{ now|date:"Y" }} Andrés Peña</strong>
+                <p class="small opacity-75 mb-0">
+                    Backend · Data · IA
+                </p>
+            </div>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+            <div class="col-md-6 text-md-end">
+                <a href="https://github.com/" target="_blank"
+                   class="text-white fs-5 me-3">
+                    <i class="bi bi-github"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank"
+                   class="text-white fs-5 me-3">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="mailto:contacto@email.com"
+                   class="text-white fs-5">
+                    <i class="bi bi-envelope"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block scripts %}{% endblock %}
+
+</body>
 </html>
