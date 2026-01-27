@@ -6,9 +6,7 @@ from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User, Group
 from django.contrib import messages
 
-from my_apps.usuarios.models import Membership, Organization, Profile
-from django.contrib.auth.models import User
-
+from my_apps.usuarios.models import  Profile
 
 def loginView(request):
 
@@ -63,6 +61,19 @@ def logoutView(request):
 def profileView(request):
     profile = get_object_or_404(Profile, user=request.user)
     return render(request, 'profile/profile.html', {'profile': profile})
+
+
+def GroupListView(request):
+    return redirect('portafolios:under_construction')
+
+def GroupDetailView(request):
+    return redirect('portafolios:under_construction')
+
+def GroupUpdateView(request):
+    return redirect('portafolios:under_construction')
+
+def GroupDeleteView(request):
+    return redirect('portafolios:under_construction')
 
 
 def OrganizationView(request):
