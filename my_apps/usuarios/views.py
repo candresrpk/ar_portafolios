@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User, Group
 from django.contrib import messages
 
-from my_apps.usuarios.models import  Profile
+from my_apps.usuarios.models import  Profile, Membership
 
 def loginView(request):
 
@@ -56,31 +56,56 @@ def logoutView(request):
     return redirect('portafolios:projects')
 
 
-
 @login_required
 def profileView(request):
-    profile = get_object_or_404(Profile, user=request.user)
-    return render(request, 'profile/profile.html', {'profile': profile})
+    profile = request.user.profile
 
+    # Membresía del usuario actual (puede ser None)
+    current_membership = (
+        Membership.objects
+        .select_related('organization')
+        .filter(profile=profile)
+        .first()
+    )
 
-def GroupListView(request):
+    memberships = []
+    members_count = 0
+    can_manage_members = False
+
+    if current_membership:
+        memberships = (
+            Membership.objects
+            .select_related('profile__user')
+            .filter(organization=current_membership.organization)
+            .order_by('-role', 'profile__user__first_name')
+        )
+
+        members_count = memberships.count()
+
+        # Permisos
+        can_manage_members = current_membership.role in ['admin', 'editor']
+
+    context = {
+        'profile': profile,
+        'current_membership': current_membership,
+        'memberships': memberships,
+        'members_count': members_count,
+        'can_manage_members': can_manage_members,
+    }
+
+    return render(request, 'profile/detail.html', context)
+
+@login_required
+def EditProfileView(request):
     return redirect('portafolios:under_construction')
 
-def GroupDetailView(request):
-    return redirect('portafolios:under_construction')
 
-def GroupUpdateView(request):
-    return redirect('portafolios:under_construction')
-
-def GroupDeleteView(request):
-    return redirect('portafolios:under_construction')
-
-
+@login_required
 def OrganizationView(request):
     return redirect('portafolios:under_construction')
 
 
-
+@login_required
 def MemeberShipView(request):
     return redirect('portafolios:under_construction')
 
